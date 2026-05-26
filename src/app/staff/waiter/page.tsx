@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { GlassCard } from "../../components/GlassCard";
-import { NeonButton } from "../../components/NeonButton";
+import { GlassCard } from "@/app/components/GlassCard";
+import { NeonButton } from "@/app/components/NeonButton";
 import { Bell, Receipt, Clock, AlertCircle } from "lucide-react";
 
 interface Table {

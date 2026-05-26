@@ -1,8 +1,8 @@
 "use client";
 
-import { GlassCard } from "../../components/GlassCard";
-import { NeonButton } from "../../components/NeonButton";
-import { StatusBadge } from "../../components/StatusBadge";
+import { GlassCard } from "@/app/components/GlassCard";
+import { NeonButton } from "@/app/components/NeonButton";
+import { StatusBadge } from "@/app/components/StatusBadge";
 import { Clock, CheckSquare } from "lucide-react";
 
 interface GameSession {

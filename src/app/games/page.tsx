@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { GlassCard } from "../components/GlassCard";
-import { NeonButton } from "../components/NeonButton";
-import { StatusBadge } from "../components/StatusBadge";
+import { GlassCard } from "@/app/components/GlassCard";
+import { NeonButton } from "@/app/components/NeonButton";
+import { StatusBadge } from "@/app/components/StatusBadge";
 import { ArrowLeft } from "lucide-react";
 
 interface Game {

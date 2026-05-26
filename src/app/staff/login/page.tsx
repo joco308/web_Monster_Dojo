@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { GlassCard } from "../../components/GlassCard";
-import { NeonButton } from "../../components/NeonButton";
+import { GlassCard } from "@/app/components/GlassCard";
+import { NeonButton } from "@/app/components/NeonButton";
 import { User, Lock } from "lucide-react";
 
 interface Role {

@@ -1,7 +1,7 @@
 "use client";
 
-import { GlassCard } from "../../components/GlassCard";
-import { StatusBadge } from "../../components/StatusBadge";
+import { GlassCard } from "@/app/components/GlassCard";
+import { StatusBadge } from "@/app/components/StatusBadge";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { DollarSign, Users, ShoppingBag, Gamepad2, TrendingUp, AlertCircle } from "lucide-react";
 
