@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useRouter } from "next/navigation";
 import { GlassCard } from "../components/GlassCard";
 import { NeonButton } from "../components/NeonButton";
 import { ArrowLeft } from "lucide-react";
@@ -16,8 +18,8 @@ const tables: Table[] = Array.from({ length: 20 }, (_, i) => ({
   capacity: i % 3 === 0 ? 6 : i % 2 === 0 ? 4 : 2
 }));
 
-export function Reservations() {
-  const navigate = useNavigate();
+export default function Reservations() {
+  const router = useRouter();
   const [selectedTable, setSelectedTable] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -41,17 +43,10 @@ export function Reservations() {
     reserved: "bg-[#f59e0b] border-[#f59e0b] cursor-not-allowed"
   };
 
-  const statusLabels = {
-    free: "Libre",
-    occupied: "Ocupada",
-    reserved: "Reservada"
-  };
-
   const freeTablesCount = tables.filter(t => t.status === "free").length;
 
   return (
     <div className="min-h-screen bg-[#050508] text-[#f0f0ff]">
-      {/* Grid background */}
       <div
         className="fixed inset-0 opacity-10 pointer-events-none"
         style={{
@@ -64,10 +59,9 @@ export function Reservations() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-8">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => router.push('/')}
             className="flex items-center gap-2 text-[#a855f7] hover:text-[#9333ea] transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -78,7 +72,6 @@ export function Reservations() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Reservation Form */}
           <GlassCard glowColor="purple" className="p-6">
             <h2 className="text-2xl mb-6" style={{ fontFamily: 'Orbitron, sans-serif' }}>
               Datos de Reservación
@@ -199,7 +192,6 @@ export function Reservations() {
             </form>
           </GlassCard>
 
-          {/* Table Map */}
           <GlassCard glowColor="blue" className="p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl" style={{ fontFamily: 'Orbitron, sans-serif' }}>
@@ -211,7 +203,6 @@ export function Reservations() {
               </div>
             </div>
 
-            {/* Legend */}
             <div className="flex gap-4 mb-6 text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-[#10b981] rounded"></div>
@@ -227,7 +218,6 @@ export function Reservations() {
               </div>
             </div>
 
-            {/* Table Grid */}
             <div className="grid grid-cols-5 gap-3">
               {tables.map(table => (
                 <button

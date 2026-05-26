@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useRouter } from "next/navigation";
 import { GlassCard } from "../components/GlassCard";
 import { NeonButton } from "../components/NeonButton";
 import { ArrowLeft, Plus, AlertTriangle } from "lucide-react";
@@ -112,15 +114,14 @@ const menuItems: MenuItem[] = [
 
 const categories = ["Snacks", "Bebidas", "Coctelería"];
 
-export function DigitalMenu() {
-  const navigate = useNavigate();
+export default function DigitalMenu() {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("Snacks");
 
   const filteredItems = menuItems.filter(item => item.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-[#050508] text-[#f0f0ff]">
-      {/* Grid background */}
       <div
         className="fixed inset-0 opacity-10 pointer-events-none"
         style={{
@@ -133,10 +134,9 @@ export function DigitalMenu() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-8">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => router.push('/')}
             className="flex items-center gap-2 text-[#a855f7] hover:text-[#9333ea] transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -146,7 +146,6 @@ export function DigitalMenu() {
           <div className="w-20" />
         </div>
 
-        {/* Category Tabs */}
         <div className="flex gap-3 mb-8">
           {categories.map(category => (
             <button
@@ -166,7 +165,6 @@ export function DigitalMenu() {
           ))}
         </div>
 
-        {/* Menu Items Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredItems.map(item => (
             <GlassCard key={item.id} glowColor="purple" className="p-5 relative">

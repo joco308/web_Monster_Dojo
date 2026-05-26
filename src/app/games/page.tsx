@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useRouter } from "next/navigation";
 import { GlassCard } from "../components/GlassCard";
 import { NeonButton } from "../components/NeonButton";
 import { StatusBadge } from "../components/StatusBadge";
@@ -34,8 +36,8 @@ const games: Game[] = [
 
 const categories = ["Todos", "Estrategia", "Familiar", "Cartas", "Clásico", "Fiesta"];
 
-export function GamesCatalog() {
-  const navigate = useNavigate();
+export default function GamesCatalog() {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("Todos");
 
   const filteredGames = selectedCategory === "Todos"
@@ -44,7 +46,6 @@ export function GamesCatalog() {
 
   return (
     <div className="min-h-screen bg-[#050508] text-[#f0f0ff]">
-      {/* Grid background */}
       <div
         className="fixed inset-0 opacity-10 pointer-events-none"
         style={{
@@ -57,10 +58,9 @@ export function GamesCatalog() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-8">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => router.push('/')}
             className="flex items-center gap-2 text-[#a855f7] hover:text-[#9333ea] transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -70,7 +70,6 @@ export function GamesCatalog() {
           <div className="w-20" />
         </div>
 
-        {/* Category Filters */}
         <div className="flex gap-3 mb-8 flex-wrap">
           {categories.map(category => (
             <button
@@ -89,7 +88,6 @@ export function GamesCatalog() {
           ))}
         </div>
 
-        {/* Games Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredGames.map(game => (
             <GlassCard key={game.id} glowColor={game.available ? "purple" : undefined} className="p-5">
@@ -136,7 +134,7 @@ export function GamesCatalog() {
                 </div>
                 <NeonButton
                   variant="primary"
-                  onClick={() => navigate('/reservations')}
+                  onClick={() => router.push('/reservations')}
                   className="px-4 py-2 text-sm"
                 >
                   Reservar

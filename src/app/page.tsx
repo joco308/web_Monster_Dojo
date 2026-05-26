@@ -1,14 +1,15 @@
-import { useNavigate } from "react-router";
-import { GlassCard } from "../components/GlassCard";
-import { NeonButton } from "../components/NeonButton";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { GlassCard } from "./components/GlassCard";
+import { NeonButton } from "./components/NeonButton";
 import { Gamepad2, Users, Calendar } from "lucide-react";
 
-export function LandingPage() {
-  const navigate = useNavigate();
+export default function LandingPage() {
+  const router = useRouter();
 
   return (
     <div className="min-h-screen bg-[#050508] text-[#f0f0ff] relative overflow-hidden">
-      {/* Grid background */}
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -20,7 +21,6 @@ export function LandingPage() {
         }}
       />
 
-      {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-8 py-6 border-b border-[rgba(255,255,255,0.08)]">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-br from-[#a855f7] to-[#3b82f6] rounded-lg flex items-center justify-center">
@@ -30,12 +30,11 @@ export function LandingPage() {
             MONSTER DOJO
           </h1>
         </div>
-        <NeonButton onClick={() => navigate('/staff/login')} variant="secondary">
+        <NeonButton onClick={() => router.push('/staff/login')} variant="secondary">
           Staff Login
         </NeonButton>
       </nav>
 
-      {/* Hero Section */}
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-20">
         <div className="text-center mb-16">
           <h1
@@ -48,23 +47,22 @@ export function LandingPage() {
             MONSTER DOJO
           </h1>
           <p className="text-2xl mb-12 text-[rgba(240,240,255,0.8)]" style={{ fontFamily: 'Rajdhani, sans-serif' }}>
-            Gaming Restaurant • La Paz, Bolivia
+            Gaming Restaurant &bull; La Paz, Bolivia
           </p>
 
           <div className="flex gap-4 justify-center">
-            <NeonButton onClick={() => navigate('/games')} variant="primary">
+            <NeonButton onClick={() => router.push('/games')} variant="primary">
               Ver Juegos
             </NeonButton>
-            <NeonButton onClick={() => navigate('/reservations')} variant="secondary">
+            <NeonButton onClick={() => router.push('/reservations')} variant="secondary">
               Reservar Mesa
             </NeonButton>
-            <NeonButton onClick={() => navigate('/menu')} variant="success">
+            <NeonButton onClick={() => router.push('/menu')} variant="success">
               Ver Menú
             </NeonButton>
           </div>
         </div>
 
-        {/* Stats Row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           <GlassCard glowColor="purple" className="p-6 text-center">
             <div className="text-5xl mb-2" style={{
@@ -100,7 +98,6 @@ export function LandingPage() {
           </GlassCard>
         </div>
 
-        {/* Features */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-5xl mx-auto">
           <div className="text-center">
             <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#a855f7] to-[#9333ea] rounded-lg flex items-center justify-center">

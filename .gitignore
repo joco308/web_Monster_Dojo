@@ -35,3 +35,7 @@ dist-ssr/
 *.tsbuildinfo
 .eslintcache
 
+# Next.js
+.next/
+next-env.d.ts
+
