@@ -132,14 +132,15 @@ export default function LandingPage() {
       for (const n of nebulae) {
         const nx = (n.x + Math.sin(t * n.speed + n.phase) * 0.05) * W;
         const ny = (n.y + Math.cos(t * n.speed * 0.7 + n.phase) * 0.04) * H;
-        const grad = ctx!.createRadialGradient(nx, ny, 0, nx, ny, n.rx * W);
+        const rx = n.rx * W;
+        const grad = ctx!.createRadialGradient(nx, ny, 0, nx, ny, rx);
         const [cr, cg, cb] = n.color;
         const p = n.a * (0.7 + 0.3 * Math.sin(t * 0.3 + n.phase));
         grad.addColorStop(0, `rgba(${cr},${cg},${cb},${p})`);
         grad.addColorStop(0.5, `rgba(${cr},${cg},${cb},${p * 0.3})`);
         grad.addColorStop(1, "transparent");
         ctx!.fillStyle = grad;
-        ctx!.fillRect(0, 0, W, H);
+        ctx!.fillRect(nx - rx, ny - rx, rx * 2, rx * 2);
       }
 
       const glowR = Math.min(W, H) * 0.17;
@@ -151,25 +152,27 @@ export default function LandingPage() {
       ctx!.fillStyle = glow;
       ctx!.fillRect(0, 0, W, H);
 
+      const fillPre = { purple: "rgba(210,175,255,", blue: "rgba(155,205,255,", white: "rgba(255,255,255," };
+      const trailPre = { purple: "rgba(210,160,255,", white: "rgba(255,255,255," };
+      const haloPre = { purple: "rgba(180,100,255,", blue: "rgba(100,160,255," };
+
       for (const s of stars) {
         const ox = s.orbitR * Math.cos(t * s.orbitSpd + s.orbitPh);
         const oy = s.orbitR * Math.sin(t * s.orbitSpd * 0.75 + s.orbitPh + 1.2);
         const raw_x = (((s.x + t * s.vx * 0.1 + ox) % 1) + 1) % 1;
         const raw_y = (((s.y + t * s.vy * 0.1 + oy) % 1) + 1) % 1;
         const sx = raw_x * W, sy = raw_y * H;
-        const twinkle = s.baseA * (0.4 + 0.6 * Math.sin(t * s.twinkleSpd + s.twinklePh));
+        const tw = Math.sin(t * s.twinkleSpd + s.twinklePh);
+        const twinkle = s.baseA * (0.4 + 0.6 * tw);
 
         if (s.trail) {
           const tx = (((s.x + (t - s.tl) * s.vx * 0.1 + ox) % 1) + 1) % 1 * W;
           const ty = (((s.y + (t - s.tl) * s.vy * 0.1 + oy) % 1) + 1) % 1 * H;
           const tg = ctx!.createLinearGradient(tx, ty, sx, sy);
           tg.addColorStop(0, "transparent");
-          tg.addColorStop(
-            1,
-            s.purple
-              ? `rgba(210,160,255,${twinkle * 0.7})`
-              : `rgba(255,255,255,${twinkle * 0.6})`,
-          );
+          tg.addColorStop(1, s.purple
+            ? trailPre.purple + (twinkle * 0.7) + ")"
+            : trailPre.white + (twinkle * 0.6) + ")");
           ctx!.beginPath();
           ctx!.moveTo(tx, ty);
           ctx!.lineTo(sx, sy);
@@ -179,10 +182,9 @@ export default function LandingPage() {
         }
 
         if (s.halo) {
-          const hc =
-            s.haloColor === "purple"
-              ? `rgba(180,100,255,${twinkle * 0.45})`
-              : `rgba(100,160,255,${twinkle * 0.40})`;
+          const hc = s.haloColor === "purple"
+            ? haloPre.purple + (twinkle * 0.45) + ")"
+            : haloPre.blue + (twinkle * 0.4) + ")";
           const hg = ctx!.createRadialGradient(sx, sy, 0, sx, sy, s.r * 6);
           hg.addColorStop(0, hc);
           hg.addColorStop(1, "transparent");
@@ -195,10 +197,10 @@ export default function LandingPage() {
         ctx!.beginPath();
         ctx!.arc(sx, sy, s.r, 0, Math.PI * 2);
         ctx!.fillStyle = s.purple
-          ? `rgba(210,175,255,${twinkle})`
+          ? fillPre.purple + twinkle + ")"
           : s.blue
-            ? `rgba(155,205,255,${twinkle})`
-            : `rgba(255,255,255,${twinkle})`;
+            ? fillPre.blue + twinkle + ")"
+            : fillPre.white + twinkle + ")";
         ctx!.fill();
       }
 
@@ -237,7 +239,7 @@ export default function LandingPage() {
       }
 
       const turns = 3.3, maxR = Math.min(W, H) * 0.50;
-      const b = maxR / (turns * Math.PI * 2), steps = 2000, rot = t * 0.12;
+      const b = maxR / (turns * Math.PI * 2), steps = 1000, rot = t * 0.12;
       const passes = [
         { lw: 4.0, a: 0.08 },
         { lw: 2.2, a: 0.17 },
@@ -264,16 +266,6 @@ export default function LandingPage() {
           ctx!.lineJoin = "round";
           ctx!.stroke();
         }
-        ctx!.beginPath();
-        for (let i = 0; i <= steps; i++) {
-          const theta = (i / steps) * turns * Math.PI * 2;
-          const ripple = 1 + 0.008 * Math.sin(theta * 3 - t * 1.2 + armOff);
-          const r = b * theta * ripple;
-          ctx!.lineTo(cx + r * Math.cos(theta + rot + armOff), cy + r * Math.sin(theta + rot + armOff));
-        }
-        ctx!.strokeStyle = `rgba(228,208,255,${ai === 0 ? 0.22 : 0.12})`;
-        ctx!.lineWidth = 0.28;
-        ctx!.stroke();
       });
 
       for (const p of particles) {
@@ -360,68 +352,68 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <GlassCard glowColor="purple" className="p-6 text-center">
-              <div className="text-5xl mb-2" style={{
+          <div className="grid grid-cols-3 gap-3 max-w-4xl mx-auto">
+            <GlassCard glowColor="purple" className="p-3 md:p-6 text-center">
+              <div className="text-2xl md:text-5xl" style={{
                 fontFamily: "Orbitron, sans-serif",
                 color: "#a855f7",
                 textShadow: "0 0 15px rgba(168, 85, 247, 0.6)"
               }}>
                 50+
               </div>
-              <div className="text-lg text-[rgba(240,240,255,0.8)]">Juegos de Mesa</div>
+              <div className="text-[10px] md:text-lg text-[rgba(240,240,255,0.8)]">Juegos</div>
             </GlassCard>
 
-            <GlassCard glowColor="blue" className="p-6 text-center">
-              <div className="text-5xl mb-2" style={{
+            <GlassCard glowColor="blue" className="p-3 md:p-6 text-center">
+              <div className="text-2xl md:text-5xl" style={{
                 fontFamily: "Orbitron, sans-serif",
                 color: "#3b82f6",
                 textShadow: "0 0 15px rgba(59, 130, 246, 0.6)"
               }}>
                 20
               </div>
-              <div className="text-lg text-[rgba(240,240,255,0.8)]">Mesas Disponibles</div>
+              <div className="text-[10px] md:text-lg text-[rgba(240,240,255,0.8)]">Mesas</div>
             </GlassCard>
 
-            <GlassCard glowColor="pink" className="p-6 text-center">
-              <div className="text-5xl mb-2" style={{
+            <GlassCard glowColor="pink" className="p-3 md:p-6 text-center">
+              <div className="text-2xl md:text-5xl" style={{
                 fontFamily: "Orbitron, sans-serif",
                 color: "#f472b6",
                 textShadow: "0 0 15px rgba(244, 114, 182, 0.6)"
               }}>
                 500+
               </div>
-              <div className="text-lg text-[rgba(240,240,255,0.8)]">Jugadores al Mes</div>
+              <div className="text-[10px] md:text-lg text-[rgba(240,240,255,0.8)]">Jugadores</div>
             </GlassCard>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-5xl mx-auto">
+          <div className="grid grid-cols-3 gap-4 mt-20 max-w-5xl mx-auto">
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#a855f7] to-[#9333ea] rounded-lg flex items-center justify-center">
-                <Gamepad2 className="w-8 h-8" />
+              <div className="w-10 h-10 md:w-16 md:h-16 mx-auto mb-2 md:mb-4 bg-gradient-to-br from-[#a855f7] to-[#9333ea] rounded-lg flex items-center justify-center">
+                <Gamepad2 className="w-5 h-5 md:w-8 md:h-8" />
               </div>
-              <h3 className="text-xl mb-2" style={{ fontFamily: "Orbitron, sans-serif" }}>BIBLIOTECA ÉPICA</h3>
-              <p className="text-[rgba(240,240,255,0.7)]">
+              <h3 className="text-[10px] md:text-xl leading-tight md:mb-2" style={{ fontFamily: "Orbitron, sans-serif" }}>BIBLIOTECA<br className="md:hidden" /> ÉPICA</h3>
+              <p className="hidden md:block text-[rgba(240,240,255,0.7)]">
                 Estrategia, familiares, clásicos y más. Encuentra tu próximo juego favorito.
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#3b82f6] to-[#2563eb] rounded-lg flex items-center justify-center">
-                <Users className="w-8 h-8" />
+              <div className="w-10 h-10 md:w-16 md:h-16 mx-auto mb-2 md:mb-4 bg-gradient-to-br from-[#3b82f6] to-[#2563eb] rounded-lg flex items-center justify-center">
+                <Users className="w-5 h-5 md:w-8 md:h-8" />
               </div>
-              <h3 className="text-xl mb-2" style={{ fontFamily: "Orbitron, sans-serif" }}>ESPACIO PREMIUM</h3>
-              <p className="text-[rgba(240,240,255,0.7)]">
+              <h3 className="text-[10px] md:text-xl leading-tight md:mb-2" style={{ fontFamily: "Orbitron, sans-serif" }}>ESPACIO<br className="md:hidden" /> PREMIUM</h3>
+              <p className="hidden md:block text-[rgba(240,240,255,0.7)]">
                 Mesas cómodas, ambiente gamer, perfecto para grupos y torneos.
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#f472b6] to-[#ec4899] rounded-lg flex items-center justify-center">
-                <Calendar className="w-8 h-8" />
+              <div className="w-10 h-10 md:w-16 md:h-16 mx-auto mb-2 md:mb-4 bg-gradient-to-br from-[#f472b6] to-[#ec4899] rounded-lg flex items-center justify-center">
+                <Calendar className="w-5 h-5 md:w-8 md:h-8" />
               </div>
-              <h3 className="text-xl mb-2" style={{ fontFamily: "Orbitron, sans-serif" }}>MENÚ GAMER</h3>
-              <p className="text-[rgba(240,240,255,0.7)]">
+              <h3 className="text-[10px] md:text-xl leading-tight md:mb-2" style={{ fontFamily: "Orbitron, sans-serif" }}>MENÚ<br className="md:hidden" /> GAMER</h3>
+              <p className="hidden md:block text-[rgba(240,240,255,0.7)]">
                 Snacks, bebidas y coctelería temática para potenciar tu experiencia.
               </p>
             </div>
