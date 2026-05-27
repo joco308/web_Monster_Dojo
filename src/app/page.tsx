@@ -330,13 +330,10 @@ export default function LandingPage() {
       <canvas ref={canvasRef} id="spiral-bg" />
       <div className="min-h-screen text-[#f0f0ff] relative overflow-hidden">
         <nav className="relative z-10 flex items-center justify-between px-8 py-6 border-b border-[rgba(255,255,255,0.08)]">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center">
             <div className="w-10 h-10 bg-gradient-to-br from-[#a855f7] to-[#3b82f6] rounded-lg flex items-center justify-center">
               <Gamepad2 className="w-6 h-6" />
             </div>
-            <h1 className="text-2xl font-bold tracking-wider" style={{ fontFamily: "Orbitron, sans-serif" }}>
-              MONSTER DOJO
-            </h1>
           </div>
           <NeonButton onClick={() => router.push("/staff/login")} variant="secondary">
             Staff Login
@@ -351,13 +348,13 @@ export default function LandingPage() {
             </p>
 
             <div className="flex gap-4 justify-center">
-              <NeonButton onClick={() => router.push("/games")} variant="primary">
+              <NeonButton onClick={() => router.push("/games")} variant="dark">
                 Ver Juegos
               </NeonButton>
-              <NeonButton onClick={() => router.push("/reservations")} variant="secondary">
+              <NeonButton onClick={() => router.push("/reservations")} variant="dark">
                 Reservar Mesa
               </NeonButton>
-              <NeonButton onClick={() => router.push("/menu")} variant="success">
+              <NeonButton onClick={() => router.push("/menu")} variant="dark">
                 Ver Menú
               </NeonButton>
             </div>

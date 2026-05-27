@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 interface NeonButtonProps {
   children: ReactNode;
   onClick?: () => void;
-  variant?: "primary" | "secondary" | "success" | "danger";
+  variant?: "primary" | "secondary" | "success" | "danger" | "dark";
   className?: string;
   type?: "button" | "submit";
 }
@@ -20,6 +20,7 @@ export function NeonButton({
     secondary: "bg-gradient-to-r from-[#3b82f6] to-[#2563eb] hover:from-[#2563eb] hover:to-[#1d4ed8] shadow-[0_0_15px_rgba(59,130,246,0.5)]",
     success: "bg-gradient-to-r from-[#10b981] to-[#059669] hover:from-[#059669] hover:to-[#047857] shadow-[0_0_15px_rgba(16,185,129,0.5)]",
     danger: "bg-gradient-to-r from-[#ef4444] to-[#dc2626] hover:from-[#dc2626] hover:to-[#b91c1c] shadow-[0_0_15px_rgba(239,68,68,0.5)]",
+    dark: "bg-gradient-to-r from-[#6b21a8] to-[#581c87] hover:from-[#581c87] hover:to-[#3b0764] shadow-[0_0_15px_rgba(88,28,135,0.5)] hover:shadow-[0_0_25px_rgba(88,28,135,0.8)]",
   };
 
   return (
@@ -32,6 +33,8 @@ export function NeonButton({
         text-[#f0f0ff]
         transition-all
         duration-200
+        hover:scale-105 hover:-translate-y-0.5
+        active:scale-95
         clip-polygon
         ${className}
       `}
