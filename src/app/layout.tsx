@@ -11,6 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <body>
         <div className="galaxy-bg">
+          <div className="vortex" />
           <div className="galaxy-stars" />
           <div className="galaxy-dust" />
         </div>

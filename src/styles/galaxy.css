@@ -232,6 +232,31 @@
   animation: twinkle-slow 5s ease-in-out infinite;
 }
 
+/* Purple spiral vortex overlay */
+@keyframes vortex-rotate {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.galaxy-bg .vortex {
+  position: absolute;
+  inset: -100%;
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(168, 85, 247, 0.06) 60deg,
+      transparent 120deg,
+      rgba(59, 130, 246, 0.04) 180deg,
+      transparent 240deg,
+      rgba(168, 85, 247, 0.06) 300deg,
+      transparent 360deg
+    );
+  animation: vortex-rotate 40s linear infinite;
+  pointer-events: none;
+}
+
 /* Tiny dust stars */
 .galaxy-dust::before {
   content: '';
