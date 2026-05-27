@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { GlassCard } from "@/app/components/GlassCard";
 import { NeonButton } from "@/app/components/NeonButton";
-import { Gamepad2, Users, Calendar } from "lucide-react";
+import { Gamepad2, Users, Calendar, Mail, Facebook, Instagram } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
@@ -340,15 +340,18 @@ export default function LandingPage() {
             </p>
 
             <div className="flex gap-4 justify-center">
-              <NeonButton onClick={() => router.push("/games")} variant="dark">
+              <button onClick={() => router.push("/games")}
+                className="px-6 py-2.5 bg-black/20 border-2 border-[#a855f7] text-[#f0f0ff] font-semibold transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 active:scale-95 rounded-lg shadow-[0_0_20px_rgba(168,85,247,0.6)] hover:shadow-[0_0_40px_rgba(168,85,247,1)]">
                 Ver Juegos
-              </NeonButton>
-              <NeonButton onClick={() => router.push("/reservations")} variant="dark">
+              </button>
+              <button onClick={() => router.push("/reservations")}
+                className="px-6 py-2.5 bg-black/20 border-2 border-[#a855f7] text-[#f0f0ff] font-semibold transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 active:scale-95 rounded-lg shadow-[0_0_20px_rgba(168,85,247,0.6)] hover:shadow-[0_0_40px_rgba(168,85,247,1)]">
                 Reservar Mesa
-              </NeonButton>
-              <NeonButton onClick={() => router.push("/menu")} variant="dark">
+              </button>
+              <button onClick={() => router.push("/menu")}
+                className="px-6 py-2.5 bg-black/20 border-2 border-[#a855f7] text-[#f0f0ff] font-semibold transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 active:scale-95 rounded-lg shadow-[0_0_20px_rgba(168,85,247,0.6)] hover:shadow-[0_0_40px_rgba(168,85,247,1)]">
                 Ver Menú
-              </NeonButton>
+              </button>
             </div>
           </div>
 
@@ -418,7 +421,32 @@ export default function LandingPage() {
               </p>
             </div>
           </div>
+
         </div>
+          <footer className="relative z-10 border border-[rgba(255,255,255,0.08)] px-8 py-8 mt-20 bg-[#05000e]/90 backdrop-blur-sm">
+            <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="text-center md:text-left">
+                <h4 className="text-sm uppercase tracking-widest mb-2" style={{ fontFamily: "Orbitron, sans-serif", color: "#a855f7" }}>
+                  Contáctanos
+                </h4>
+                <a href="mailto:contacto@test.com" className="flex items-center gap-2 text-[rgba(240,240,255,0.7)] hover:text-[#a855f7] transition-colors text-sm">
+                  <Mail className="w-4 h-4" />
+                  contacto@dojomojo.bo
+                </a>
+              </div>
+              <div className="flex items-center gap-6">
+                <a href="https://facebook.com/test" target="_blank" rel="noopener noreferrer" className="text-[rgba(240,240,255,0.6)] hover:text-[#a855f7] transition-colors">
+                  <Facebook className="w-6 h-6" />
+                </a>
+                <a href="https://instagram.com/test" target="_blank" rel="noopener noreferrer" className="text-[rgba(240,240,255,0.6)] hover:text-[#a855f7] transition-colors">
+                  <Instagram className="w-6 h-6" />
+                </a>
+              </div>
+            </div>
+            <div className="text-center mt-6 text-xs text-[rgba(240,240,255,0.3)]">
+              &copy; {new Date().getFullYear()} Dojo Mojo Gaming Restaurant. Todos los derechos reservados.
+            </div>
+          </footer>
       </div>
     </>
   );
