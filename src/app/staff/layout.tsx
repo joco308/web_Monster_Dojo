@@ -32,18 +32,7 @@ export default function StaffLayout({ children }: { children: ReactNode }) {
   });
 
   return (
-    <div className="min-h-screen bg-[#050508] text-[#f0f0ff] flex">
-      <div
-        className="fixed inset-0 opacity-10 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, #a855f7 1px, transparent 1px),
-            linear-gradient(to bottom, #a855f7 1px, transparent 1px)
-          `,
-          backgroundSize: "40px 40px",
-        }}
-      />
-
+    <div className="min-h-screen bg-transparent text-[#f0f0ff] flex">
       <div className="w-60 bg-[rgba(255,255,255,0.02)] border-r border-[rgba(255,255,255,0.08)] flex flex-col relative z-10">
         <div className="p-6 border-b border-[rgba(255,255,255,0.08)]">
           <h1 className="text-xl tracking-wider" style={{ fontFamily: "Orbitron, sans-serif" }}>

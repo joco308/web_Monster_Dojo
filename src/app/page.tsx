@@ -9,18 +9,7 @@ export default function LandingPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#050508] text-[#f0f0ff] relative overflow-hidden">
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, #a855f7 1px, transparent 1px),
-            linear-gradient(to bottom, #a855f7 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px'
-        }}
-      />
-
+    <div className="min-h-screen bg-transparent text-[#f0f0ff] relative overflow-hidden">
       <nav className="relative z-10 flex items-center justify-between px-8 py-6 border-b border-[rgba(255,255,255,0.08)]">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-br from-[#a855f7] to-[#3b82f6] rounded-lg flex items-center justify-center">

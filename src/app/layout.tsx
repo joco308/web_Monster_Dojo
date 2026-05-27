@@ -9,7 +9,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        <div className="galaxy-bg">
+          <div className="galaxy-stars" />
+          <div className="galaxy-dust" />
+        </div>
+        <div className="relative z-10">{children}</div>
+      </body>
     </html>
   );
 }

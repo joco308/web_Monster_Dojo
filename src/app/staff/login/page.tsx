@@ -36,18 +36,7 @@ export default function StaffLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050508] text-[#f0f0ff] flex items-center justify-center relative overflow-hidden">
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, #a855f7 1px, transparent 1px),
-            linear-gradient(to bottom, #a855f7 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px'
-        }}
-      />
-
+    <div className="min-h-screen bg-transparent text-[#f0f0ff] flex items-center justify-center relative overflow-hidden">
       <GlassCard glowColor="purple" className="w-full max-w-md p-8 relative z-10 mx-4">
         <div className="text-center mb-8">
           <h1 className="text-3xl mb-2" style={{ fontFamily: 'Orbitron, sans-serif' }}>

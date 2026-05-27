@@ -45,18 +45,7 @@ export default function GamesCatalog() {
     : games.filter(game => game.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-[#050508] text-[#f0f0ff]">
-      <div
-        className="fixed inset-0 opacity-10 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, #a855f7 1px, transparent 1px),
-            linear-gradient(to bottom, #a855f7 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px'
-        }}
-      />
-
+    <div className="min-h-screen bg-transparent text-[#f0f0ff]">
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-8">
         <div className="flex items-center justify-between mb-8">
           <button
