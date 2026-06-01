@@ -1,2 +1,1 @@
-
-Iniciamos con pnpm porfa a TODOS
+mentira npm otra vez

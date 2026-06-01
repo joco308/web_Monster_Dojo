@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { GlassCard } from "@/app/components/GlassCard";
 import { NeonButton } from "@/app/components/NeonButton";
-import { Gamepad2, Users, Calendar, Mail, Facebook, Instagram } from "lucide-react";
+import { Gamepad2, Users, Calendar, Mail } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
@@ -436,10 +436,16 @@ export default function LandingPage() {
               </div>
               <div className="flex items-center gap-6">
                 <a href="https://facebook.com/test" target="_blank" rel="noopener noreferrer" className="text-[rgba(240,240,255,0.6)] hover:text-[#a855f7] transition-colors">
-                  <Facebook className="w-6 h-6" />
+                  <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z" />
+                  </svg>
                 </a>
                 <a href="https://instagram.com/test" target="_blank" rel="noopener noreferrer" className="text-[rgba(240,240,255,0.6)] hover:text-[#a855f7] transition-colors">
-                  <Instagram className="w-6 h-6" />
+                  <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                  </svg>
                 </a>
               </div>
             </div>
