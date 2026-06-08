@@ -327,7 +327,7 @@ export default function LandingPage() {
               <Gamepad2 className="w-6 h-6" />
             </div>
           </div>
-          <NeonButton onClick={() => router.push("/staff/login")} variant="secondary">
+          <NeonButton onClick={() => router.push("/login")} variant="secondary">
             Staff Login
           </NeonButton>
         </nav>

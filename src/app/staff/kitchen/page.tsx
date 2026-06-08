@@ -64,8 +64,8 @@ export default function KitchenModule() {
   const completedToday = 18;
 
   return (
-    <div className="p-8">
-      <h1 className="text-4xl mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+    <div className="p-4 sm:p-6 lg:p-8">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
         MÓDULO DE COCINA
       </h1>
 
@@ -73,7 +73,7 @@ export default function KitchenModule() {
         <GlassCard glowColor="purple" className="p-5 text-center">
           <div className="text-sm text-[rgba(240,240,255,0.6)] mb-2">Pendientes</div>
           <div
-            className="text-5xl"
+            className="text-3xl sm:text-4xl lg:text-5xl"
             style={{
               fontFamily: 'Orbitron, sans-serif',
               color: '#f59e0b',
@@ -87,7 +87,7 @@ export default function KitchenModule() {
         <GlassCard glowColor="blue" className="p-5 text-center">
           <div className="text-sm text-[rgba(240,240,255,0.6)] mb-2">En Preparación</div>
           <div
-            className="text-5xl"
+            className="text-3xl sm:text-4xl lg:text-5xl"
             style={{
               fontFamily: 'Orbitron, sans-serif',
               color: '#3b82f6',
@@ -101,7 +101,7 @@ export default function KitchenModule() {
         <GlassCard glowColor="cyan" className="p-5 text-center">
           <div className="text-sm text-[rgba(240,240,255,0.6)] mb-2">Listos Hoy</div>
           <div
-            className="text-5xl"
+            className="text-3xl sm:text-4xl lg:text-5xl"
             style={{
               fontFamily: 'Orbitron, sans-serif',
               color: '#10b981',
@@ -113,7 +113,7 @@ export default function KitchenModule() {
         </GlassCard>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
         {orders.map(order => {
           const isOvertime = order.timeElapsed > order.maxTime;
           const timePercentage = (order.timeElapsed / order.maxTime) * 100;
@@ -128,7 +128,7 @@ export default function KitchenModule() {
                 <div>
                   <div className="text-sm text-[rgba(240,240,255,0.6)]">Mesa</div>
                   <div
-                    className="text-3xl"
+                    className="text-2xl sm:text-3xl"
                     style={{
                       fontFamily: 'Share Tech Mono, monospace',
                       color: '#a855f7',

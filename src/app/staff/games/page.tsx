@@ -44,16 +44,16 @@ export default function GamesControl() {
   const overtimeGames = games.filter(g => g.status === "overtime" || (g.timeElapsed && g.maxTime && g.timeElapsed > g.maxTime)).length;
 
   return (
-    <div className="p-8">
-      <h1 className="text-4xl mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+    <div className="p-4 sm:p-6 lg:p-8">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
         CONTROL DE JUEGOS
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
         <GlassCard glowColor="purple" className="p-5 text-center">
           <div className="text-sm text-[rgba(240,240,255,0.6)] mb-2">Libres</div>
           <div
-            className="text-5xl"
+            className="text-3xl sm:text-4xl lg:text-5xl"
             style={{
               fontFamily: 'Orbitron, sans-serif',
               color: '#10b981',
@@ -67,7 +67,7 @@ export default function GamesControl() {
         <GlassCard glowColor="blue" className="p-5 text-center">
           <div className="text-sm text-[rgba(240,240,255,0.6)] mb-2">Ocupados</div>
           <div
-            className="text-5xl"
+            className="text-3xl sm:text-4xl lg:text-5xl"
             style={{
               fontFamily: 'Orbitron, sans-serif',
               color: '#3b82f6',
@@ -81,7 +81,7 @@ export default function GamesControl() {
         <GlassCard glowColor="pink" className="p-5 text-center">
           <div className="text-sm text-[rgba(240,240,255,0.6)] mb-2">Tiempo Extra</div>
           <div
-            className="text-5xl"
+            className="text-3xl sm:text-4xl lg:text-5xl"
             style={{
               fontFamily: 'Orbitron, sans-serif',
               color: '#ef4444',
@@ -93,7 +93,7 @@ export default function GamesControl() {
         </GlassCard>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-8">
         {games.map(game => {
           const isOvertime = game.timeElapsed && game.maxTime && game.timeElapsed > game.maxTime;
           const timePercentage = game.timeElapsed && game.maxTime ? (game.timeElapsed / game.maxTime) * 100 : 0;

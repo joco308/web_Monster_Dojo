@@ -63,14 +63,14 @@ const topSales = [
 
 export default function BarModule() {
   return (
-    <div className="p-8">
-      <h1 className="text-4xl mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+    <div className="p-4 sm:p-6 lg:p-8">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
         MÓDULO DE BAR
       </h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <h2 className="text-2xl" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="lg:col-span-2 space-y-4 sm:space-y-6">
+          <h2 className="text-xl sm:text-2xl" style={{ fontFamily: 'Orbitron, sans-serif' }}>
             Cola de Pedidos
           </h2>
 
@@ -145,7 +145,7 @@ export default function BarModule() {
           })}
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <GlassCard glowColor="purple" className="p-6">
             <h2 className="text-xl mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
               Control de Stock

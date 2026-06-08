@@ -62,19 +62,19 @@ export default function WaiterFloorMap() {
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-4xl mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+    <div className="p-4 sm:p-6 lg:p-8">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
         MAPA DEL SALÓN
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <GlassCard glowColor="cyan" className="p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
+              <h2 className="text-xl sm:text-2xl" style={{ fontFamily: 'Orbitron, sans-serif' }}>
                 Plano del Restaurante
               </h2>
-              <div className="flex gap-4 text-sm">
+              <div className="flex gap-3 sm:gap-4 text-xs sm:text-sm">
                 <div>
                   <span className="text-[rgba(240,240,255,0.6)]">Ocupadas: </span>
                   <span className="text-[#ef4444] font-bold">{occupiedCount}</span>
@@ -90,7 +90,7 @@ export default function WaiterFloorMap() {
               </div>
             </div>
 
-            <div className="flex gap-4 mb-6 text-sm">
+            <div className="flex flex-wrap gap-3 sm:gap-4 mb-6 text-xs sm:text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-[#10b981] rounded"></div>
                 <span>Libre</span>
@@ -105,7 +105,7 @@ export default function WaiterFloorMap() {
               </div>
             </div>
 
-            <div className="grid grid-cols-5 gap-3 mb-6">
+            <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 sm:gap-3 mb-6">
               {tables.map(table => (
                 <button
                   key={table.id}
@@ -134,7 +134,7 @@ export default function WaiterFloorMap() {
                   Mesa #{selectedTable}
                 </h3>
 
-                <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                   <input
                     type="number"
                     placeholder="Nueva mesa"

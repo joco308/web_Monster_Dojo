@@ -37,8 +37,8 @@ const alerts = [
 
 export default function AdminDashboard() {
   return (
-    <div className="p-8">
-      <h1 className="text-4xl mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+    <div className="p-4 sm:p-6 lg:p-8">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
         ADMIN DASHBOARD
       </h1>
 
@@ -56,9 +56,9 @@ export default function AdminDashboard() {
                 </div>
                 <span className="text-xs text-[#10b981]">{kpi.change}</span>
               </div>
-              <div className="text-sm text-[rgba(240,240,255,0.6)] mb-1">{kpi.label}</div>
+              <div className="text-xs sm:text-sm text-[rgba(240,240,255,0.6)] mb-1">{kpi.label}</div>
               <div
-                className="text-2xl"
+                className="text-lg sm:text-xl lg:text-2xl"
                 style={{
                   fontFamily: 'Orbitron, sans-serif',
                   color: kpi.color,
@@ -72,9 +72,9 @@ export default function AdminDashboard() {
         })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <GlassCard glowColor="blue" className="p-6 lg:col-span-1">
-          <h2 className="text-xl mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+          <h2 className="text-lg sm:text-xl mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
             Pedidos en Vivo
           </h2>
           <div className="space-y-3">

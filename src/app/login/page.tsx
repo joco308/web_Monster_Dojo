@@ -27,17 +27,16 @@ export default function StaffLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = () => {
     const role = roles.find(r => r.id === selectedRole);
-    if (role) {
-      router.push(role.route);
-    }
+    if (!role) return;
+    sessionStorage.setItem("staff_role", role.id);
+    router.push(role.route);
   };
 
   return (
     <div className="min-h-screen bg-transparent text-[#f0f0ff] flex items-center justify-center relative overflow-hidden">
-      <GlassCard glowColor="purple" className="w-full max-w-md p-8 relative z-10 mx-4">
+      <GlassCard glowColor="purple" className="w-full max-w-md p-6 sm:p-8 relative z-10 mx-4">
         <div className="text-center mb-8">
           <h1 className="text-3xl mb-2" style={{ fontFamily: 'Orbitron, sans-serif' }}>
             STAFF ACCESS
@@ -45,13 +44,13 @@ export default function StaffLogin() {
           <p className="text-sm text-[rgba(240,240,255,0.6)]">Selecciona tu rol para continuar</p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mb-6">
+        <div className="grid grid-cols-2 max-[400px]:grid-cols-1 gap-3 mb-6">
           {roles.map(role => (
             <button
               key={role.id}
               onClick={() => setSelectedRole(role.id)}
               className={`
-                p-4 rounded-lg border-2 transition-all
+                p-3 sm:p-4 rounded-lg border-2 transition-all
                 ${selectedRole === role.id
                   ? 'border-current shadow-[0_0_20px_currentColor]'
                   : 'border-[rgba(255,255,255,0.08)] hover:border-[rgba(255,255,255,0.2)]'
@@ -59,13 +58,13 @@ export default function StaffLogin() {
               `}
               style={{ color: role.color }}
             >
-              <div className="text-3xl mb-2">{role.emoji}</div>
-              <div className="text-sm font-semibold text-[#f0f0ff]">{role.name}</div>
+              <div className="text-2xl sm:text-3xl mb-1 sm:mb-2">{role.emoji}</div>
+              <div className="text-xs sm:text-sm font-semibold text-[#f0f0ff]">{role.name}</div>
             </button>
           ))}
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <div className="space-y-4">
           <div>
             <label className="block text-sm mb-2">Usuario</label>
             <div className="relative">
@@ -76,7 +75,6 @@ export default function StaffLogin() {
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.08)] rounded px-10 py-2.5 focus:border-[#a855f7] focus:outline-none transition-colors"
                 placeholder="usuario"
-                required
               />
             </div>
           </div>
@@ -91,19 +89,18 @@ export default function StaffLogin() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.08)] rounded px-10 py-2.5 focus:border-[#a855f7] focus:outline-none transition-colors"
                 placeholder="••••••••"
-                required
               />
             </div>
           </div>
 
           <NeonButton
-            type="submit"
+            onClick={handleLogin}
             variant="primary"
             className="w-full"
           >
             Iniciar Sesión
           </NeonButton>
-        </form>
+        </div>
 
         <div className="mt-6 pt-6 border-t border-[rgba(255,255,255,0.08)]">
           <p className="text-xs text-center text-[rgba(240,240,255,0.4)] mb-2">
