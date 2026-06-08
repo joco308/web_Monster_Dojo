@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState, useEffect } from "react";
+import { ReactNode, useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { LogOut, Clock, LayoutDashboard, Utensils, Wine, Users, Gamepad2, Menu, X } from "lucide-react";
 
@@ -25,6 +25,8 @@ export default function StaffLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [authed, setAuthed] = useState(false);
+  const [currentTime, setCurrentTime] = useState("");
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const role = sessionStorage.getItem("staff_role");
@@ -35,55 +37,67 @@ export default function StaffLayout({ children }: { children: ReactNode }) {
     }
   }, [router]);
 
-  const currentRole = roleMap[pathname.split("/").pop() ?? ""] ?? "Staff";
+  useEffect(() => {
+    const updateTime = () =>
+      setCurrentTime(
+        new Date().toLocaleTimeString("es-BO", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      );
+    updateTime();
+    const interval = setInterval(updateTime, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
-  const currentTime = new Date().toLocaleTimeString("es-BO", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const currentRole = roleMap[pathname.split("/").pop() ?? ""] ?? "Staff";
 
   if (!authed) return null;
 
   return (
-    <div className="min-h-screen bg-transparent text-[#f0f0ff] flex">
+    <div className="min-h-dvh bg-background text-[#f0f0ff] flex">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/60 z-40 md:hidden"
+          className="fixed inset-0 bg-black/70 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <div
+        ref={sidebarRef}
         className={`
-          fixed inset-y-0 left-0 z-50 w-60
-          md:static md:z-auto
-          transition-transform duration-200
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+          fixed inset-y-0 left-0 z-50 w-64
+          lg:static lg:z-auto
+          transition-transform duration-300 ease-in-out
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
         `}
       >
-        <div className="bg-[rgba(255,255,255,0.02)] border-r border-[rgba(255,255,255,0.08)] flex flex-col h-full">
-          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[rgba(255,255,255,0.08)]">
+        <div className="bg-[#0a0a10] border-r border-white/10 flex flex-col h-full">
+          {/* Header */}
+          <div className="flex items-center justify-between p-5 border-b border-white/10 shrink-0">
             <div>
-              <h1 className="text-xl tracking-wider" style={{ fontFamily: "Orbitron, sans-serif" }}>
+              <h1 className="text-lg tracking-wider" style={{ fontFamily: "Orbitron, sans-serif" }}>
                 MONSTER DOJO
               </h1>
               <div className="flex items-center gap-2 mt-2">
                 <div className="w-2 h-2 bg-[#10b981] rounded-full animate-pulse" />
-                <span className="text-xs text-[rgba(240,240,255,0.6)]">{currentRole} &bull; Online</span>
+                <span className="text-xs text-muted-foreground">{currentRole} &bull; Online</span>
               </div>
             </div>
             <button
-              className="md:hidden text-[rgba(240,240,255,0.6)] hover:text-white"
+              className="lg:hidden text-muted-foreground hover:text-white transition-colors"
               onClick={() => setSidebarOpen(false)}
+              aria-label="Cerrar menú"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="p-4 sm:p-6 border-b border-[rgba(255,255,255,0.08)]">
-            <div className="flex items-center gap-2 text-sm text-[rgba(240,240,255,0.6)] mb-1">
+          {/* Clock */}
+          <div className="p-5 border-b border-white/10 shrink-0">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
               <Clock className="w-4 h-4" />
               <span>Hora Actual</span>
             </div>
@@ -95,7 +109,8 @@ export default function StaffLayout({ children }: { children: ReactNode }) {
             </div>
           </div>
 
-          <nav className="flex-1 p-4">
+          {/* Navigation — scrollable */}
+          <nav className="flex-1 overflow-y-auto p-3 space-y-0.5 scrollbar-thin">
             {navItems.map((item) => {
               const isActive = pathname === item.path;
               const Icon = item.icon;
@@ -105,28 +120,30 @@ export default function StaffLayout({ children }: { children: ReactNode }) {
                   key={item.path}
                   onClick={() => { router.push(item.path); setSidebarOpen(false); }}
                   className={`
-                    w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-all
+                    w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all
+                    min-h-11 active:scale-[0.98]
                     ${
                       isActive
-                        ? "bg-gradient-to-r from-[rgba(168,85,247,0.2)] to-transparent border-l-4"
-                        : "hover:bg-[rgba(255,255,255,0.04)]"
+                        ? "bg-gradient-to-r from-purple-900/40 to-transparent border-l-4 text-white"
+                        : "text-muted-foreground hover:text-white hover:bg-white/5"
                     }
                   `}
-                  style={isActive ? { borderColor: item.color } : {}}
+                  style={isActive ? { borderLeftColor: item.color } : {}}
                 >
-                  <Icon className="w-5 h-5" style={isActive ? { color: item.color } : {}} />
-                  <span>{item.label}</span>
+                  <Icon className="w-5 h-5 shrink-0" style={isActive ? { color: item.color } : {}} />
+                  <span className="truncate">{item.label}</span>
                 </button>
               );
             })}
           </nav>
 
-          <div className="p-4 border-t border-[rgba(255,255,255,0.08)]">
+          {/* Logout */}
+          <div className="p-3 border-t border-white/10 shrink-0">
             <button
               onClick={() => { sessionStorage.removeItem("staff_role"); router.push("/login"); }}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[rgba(239,68,68,0.1)] hover:text-[#ef4444] transition-all"
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground hover:text-[#ef4444] hover:bg-red-500/10 transition-all min-h-11 active:scale-[0.98]"
             >
-              <LogOut className="w-5 h-5" />
+              <LogOut className="w-5 h-5 shrink-0" />
               <span>Cerrar Sesión</span>
             </button>
           </div>
@@ -134,20 +151,22 @@ export default function StaffLayout({ children }: { children: ReactNode }) {
       </div>
 
       {/* Content */}
-      <div className="flex-1 min-w-0 overflow-auto relative z-10">
-        {/* Mobile hamburger */}
-        <div className="md:hidden flex items-center p-2 border-b border-[rgba(255,255,255,0.08)]">
+      <div className="flex-1 min-w-0 flex flex-col">
+        {/* Mobile/tablet top bar */}
+        <div className="lg:hidden flex items-center gap-3 px-4 py-2 border-b border-white/10 bg-background sticky top-0 z-30">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 text-[rgba(240,240,255,0.6)] hover:text-white"
+            className="p-2 -ml-2 text-muted-foreground hover:text-white transition-colors"
+            aria-label="Abrir menú"
           >
             <Menu className="w-6 h-6" />
           </button>
-          <span className="ml-2 text-sm font-semibold text-[rgba(240,240,255,0.6)]">
-            {currentRole}
-          </span>
+          <span className="text-sm font-semibold text-muted-foreground">{currentRole}</span>
         </div>
-        {children}
+
+        <main className="flex-1 overflow-auto">
+          {children}
+        </main>
       </div>
     </div>
   );
